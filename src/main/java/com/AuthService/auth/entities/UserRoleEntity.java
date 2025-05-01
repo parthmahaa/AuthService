@@ -4,17 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "roles")
 @Data
+@Table(name = "roles")
 public class UserRoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="role_id")
+    @Column(name = "role_id")
     private Long roleId;
 
+    @Column(unique = true, nullable = false)
     private String name;
 }

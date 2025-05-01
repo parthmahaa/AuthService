@@ -6,11 +6,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @Table(name = "tokens")
@@ -20,10 +18,11 @@ public class TokenEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String refreshToken;
+    private String token;
 
-    private Instant expiryDate;
+    private String username;
 
+    private Date expiryDate;
     @OneToOne
     @JoinColumn(
             name = "id" ,referencedColumnName = "user_id"
