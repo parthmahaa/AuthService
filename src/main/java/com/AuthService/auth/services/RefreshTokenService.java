@@ -11,7 +11,7 @@ import java.util.*;
 public class RefreshTokenService {
 
     private final TokenRepo tokenRepo;
-    private static final long REFRESH_TOKEN_VALIDITY = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+    private static final long REFRESH_TOKEN_VALIDITY = 60 * 1000; // 1 min in milliseconds
 
     public RefreshTokenService(TokenRepo tokenRepo) {
         this.tokenRepo = tokenRepo;

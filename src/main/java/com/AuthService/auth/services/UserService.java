@@ -5,11 +5,14 @@ import com.AuthService.auth.entities.TokenEntity;
 import com.AuthService.auth.entities.UserEntity;
 import com.AuthService.auth.repo.TokenRepo;
 import com.AuthService.auth.repo.UserRepo;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -20,8 +23,12 @@ public class UserService implements UserDetailsService {
 
     private final UserRepo userRepo;
     private final TokenRepo tokenRepo;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
@@ -33,7 +40,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(UserEntity user){
-        user.setPassword(user.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
     }
 
